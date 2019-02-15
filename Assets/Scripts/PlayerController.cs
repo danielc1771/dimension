@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
                         doubleJumpAvailable = false;
                         jumpedRightWall = false;
                         jumpedLeftWall = false;
-                        playerRigidbody.velocity += new Vector3(0f, jumpSpeed, 0f);
+                        playerRigidbody.velocity = new Vector3(0f, jumpSpeed, 0f);
                     }
                 }
             }

@@ -186,8 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4e58037c05f4419ea817a9f37930a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yLowClampAngle: -30
-  yClampRange: 60
+  yLowClampAngle: -35
+  yClampRange: 70
   lookSensitivity: 20
   smoothingWeight: 10
 --- !u!1 &985420412684668487
@@ -219,7 +219,7 @@ Transform:
   m_GameObject: {fileID: 985420412684668487}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.34, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 1.3, z: 0.7}
   m_Children:
   - {fileID: 985420412331130152}
   - {fileID: 985420410745070318}
@@ -239,8 +239,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 8
-  jumpSpeed: 11
-  wallJumpVerticalSpeed: 11
+  jumpSpeed: 12
+  wallJumpVerticalSpeed: 12
   wallJumpHorizontalSpeed: 3
   runSpeedMultiplier: 1.5
   wallTouchRadius: 0.6
