@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 43189a04093bf48f19d1adc183b4fbb6
+guid: 5e7b07a2650b54a99b6e1829dc82a98e
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -46,14 +46,14 @@ ModelImporter:
     3300014: RightArm
     3300016: RightLeg
     3300018: torso
-    4300000: torso
-    4300002: LeftArm
-    4300004: RightArm
-    4300006: head
-    4300008: hair
+    4300000: LeftArm
+    4300002: RightArm
+    4300004: torso
+    4300006: ear2
+    4300008: ear
     4300010: nose
-    4300012: ear
-    4300014: ear2
+    4300012: hair
+    4300014: head
     4300016: Leftleg
     4300018: RightLeg
     7400000: Take 001
@@ -85,7 +85,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 11
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []

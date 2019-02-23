@@ -42,7 +42,7 @@ public class PlayerLookController : MonoBehaviour
         playerRigidBody.MoveRotation(Quaternion.Euler(playerRigidBody.rotation.eulerAngles + new Vector3(0f, lookSensitivity * Input.GetAxis("Mouse X"), 0f)));
     }
 
-    private void fixedUpdate()
+    private void FixedUpdate()
     {
         Cursor.visible = cursorIsVisible;
         Cursor.lockState = !cursorIsVisible ? CursorLockMode.Locked : CursorLockMode.None;

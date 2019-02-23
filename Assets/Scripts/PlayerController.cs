@@ -20,11 +20,16 @@ public class PlayerController : MonoBehaviour
     private bool jumpedRightWall = false;
     private bool jumpedLeftWall = false;
     private bool doubleJumpAvailable = false;
+    private Animator animator;
+    private bool walking = false;
+    private bool running = false;
+    private bool jumping = false;
 
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
+        animator = GetComponent<Animator>();
         hud.Refresh();
     }
 
@@ -32,23 +37,41 @@ public class PlayerController : MonoBehaviour
     {
         WalkHandler();
         JumpHandler();
+    
     }
 
-    void WalkHandler() 
+    private void FixedUpdate()
     {
-        float distance = getWalkHandlerDistance();
-        Vector3 movement = getWalkHandlerMovement(distance);
+        animator.SetBool("Walking", walking);
+        animator.SetBool("Sprinting", running);
+        animator.SetBool("Jumping", playerHasJumped);
+        animator.SetBool("InAir", !IsGrounded());
+    }
+
+    private void WalkHandler() 
+    {
+        running = Input.GetButton("Run");
+        walking = IsHoldingWalking();
+        float distance = GetWalkHandlerDistance();
+        Vector3 movement = GetWalkHandlerMovement(distance);
+        animator.SetFloat("Walk", movement.x + movement.y);
         Vector3 currentPosition = transform.position;
         Vector3 newPosition = currentPosition + movement;
         playerRigidbody.MovePosition(newPosition);
     }
 
-    private float getWalkHandlerDistance() {
+    private bool IsHoldingWalking()
+    {
+        return Input.GetKey(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKey(KeyCode.A)
+            || Input.GetKey(KeyCode.D);
+    }
+
+    private float GetWalkHandlerDistance() {
         float distance = walkSpeed * Time.deltaTime;
         return IsGrounded() && Input.GetButton("Run") ? distance *= runSpeedMultiplier : distance;
     }
 
-    private Vector3 getWalkHandlerMovement(float distance) {
+    private Vector3 GetWalkHandlerMovement(float distance) {
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal") * distance, 0f, Input.GetAxis("Vertical") * distance);
         return transform.TransformDirection(movement);
     }
