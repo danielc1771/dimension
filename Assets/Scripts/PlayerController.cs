@@ -19,15 +19,15 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRigidbody;
     private Collider playerCollider;
 
-    private int whichHand = 0;
     private bool playerHasJumped = false;
     private bool jumpedRightWall = false;
     private bool jumpedLeftWall = false;
     private bool doubleJumpAvailable = false;
-    private bool kickKeyPressed = false;
-    private bool punchKeyPressed = false;
-    private bool punchingLeft = false;
-    private bool punchingRight = true;
+
+
+    private bool punchingHand = false;
+    private bool punchAvailable = true;
+    private bool kickAvailable = true;
 
     private Animator animator;
     private bool walking = false;
@@ -60,8 +60,9 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Sprinting", running);
         animator.SetBool("Jumping", playerHasJumped);
         animator.SetBool("InAir", !IsGrounded());
-        animator.SetBool("PunchingRight", punchingRight && punchKeyPressed);
-        animator.SetBool("PunchingLeft", punchingLeft && punchKeyPressed);
+        animator.SetBool("PunchingRight", !punchAvailable && !punchingHand);
+        animator.SetBool("PunchingLeft", !punchAvailable && punchingHand);
+        animator.SetBool("Kicking", !kickAvailable);
     }
 
 
@@ -158,88 +159,70 @@ public class PlayerController : MonoBehaviour
     {
         if (PunchKeyPressed())
         {
-            if (!punchKeyPressed)
+            if (punchAvailable && kickAvailable)
             {
-                punchKeyPressed = true;
-                audioGenerator.PlaySound(PlayerAudioIndex.PUNCH);
-                punchingLeft = !punchingLeft;
-                punchingRight = !punchingRight;
+                StartCoroutine(Punch());
             }
-            else
-            {
-                punchKeyPressed = false;
-            }
-            //StartCoroutine(PunchAnimation());
         }
-        else {
-            punchKeyPressed = false;
-        }
-        if (KickKeyPressed())
+
+        if(KickKeyPressed())
         {
-            //StartCoroutine(KickAnimation());
+            if (punchAvailable && kickAvailable)
+            {
+                StartCoroutine(Kick());
+            }
         }
-        return;
     }
 
-    IEnumerator PunchAnimation()
+    private IEnumerator Punch()
     {
-        //updates the punchKeyPressed value twice so when unity detects a collision with the enemy, it checks to see if the attack button has been pressed
-        //punchKeyPressed = true;
-
-
-
-        //plays the punch sound
+        punchAvailable = false;
+        punchingHand = !punchingHand;
         audioGenerator.PlaySound(PlayerAudioIndex.PUNCH);
-
-        //this waits for 1 second before changing the value of punchKeyPressed. a more accurate name for punchKeyPressed would be canPunch or runningPunchAnimation
-        //NOTE the 1 second wait time should be changed to reflect the duration of the punching animation
-        yield return new WaitForSeconds(1);
-
-        //punchKeyPressed = false;
-        //animator.SetBool("PunchingLeft", punchKeyPressed);
+        yield return new WaitForSeconds(.3f);
+        punchAvailable = true;
     }
 
     //same as punch animation method above
-    IEnumerator KickAnimation()
+    IEnumerator Kick()
     {
-        kickKeyPressed = true;
-        //call animation
-        //play sound
-        yield return new WaitForSeconds(0.1f);
-        kickKeyPressed = false;
+        kickAvailable = false;
+        yield return new WaitForSeconds(.3f);
+        kickAvailable = true;
     }
 
     //Detects collision with enemy
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            //makes sure animation is running/punch key has been pressed. if this check it not here, the player can walk into the enemy and damage it
-            if (punchKeyPressed)
-            {
-                GameObject enemy = collision.gameObject;
-                EnemyAI temp = (EnemyAI)enemy.GetComponent(typeof(EnemyAI));
+        //if (collision.gameObject.tag == "Enemy")
+        //{
+        //    //makes sure animation is running/punch key has been pressed. if this check it not here, the player can walk into the enemy and damage it
+        //    if (punchKeyPressed)
+        //    {
+        //        GameObject enemy = collision.gameObject;
+        //        EnemyAI temp = (EnemyAI)enemy.GetComponent(typeof(EnemyAI));
 
-                //DamageEnemy takes in a force vector. FIXME these values are just for testing. might want to lower them
-                temp.DamageEnemy(new Vector3(10000f, 10000f, 10000f), collision.gameObject.GetComponent<Rigidbody>());
-            }
-        }
-        else return;
+        //        //DamageEnemy takes in a force vector. FIXME these values are just for testing. might want to lower them
+        //        temp.DamageEnemy(new Vector3(10000f, 10000f, 10000f), collision.gameObject.GetComponent<Rigidbody>());
+        //    }
+        //}
+        //else return;
     }
 
     private bool JumpKeyPressed()
     {
         return Input.GetAxis("Jump") > 0f;
     }
-
     private bool PunchKeyPressed()
     {
-        return Input.GetAxis("Punch") > 0f;
+        //return Input.GetAxis("Punch") > 0f;
+        return Input.GetKeyDown(KeyCode.Space);
     }
 
     private bool KickKeyPressed()
     {
-        return Input.GetAxis("Kick") > 0f;
+        // return Input.GetAxis("Kick") > 0f;
+        return Input.GetKeyDown(KeyCode.Mouse1);
     }
 
     private bool IsGrounded()
