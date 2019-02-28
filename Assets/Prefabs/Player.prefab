@@ -151,7 +151,7 @@ MonoBehaviour:
   walkSpeed: 8
   jumpSpeed: 15
   wallJumpVerticalSpeed: 11
-  wallJumpHorizontalSpeed: 2
+  wallJumpHorizontalSpeed: 3
   runSpeedMultiplier: 1.5
   wallTouchRadius: 0.6
 --- !u!54 &3025476868520834814
