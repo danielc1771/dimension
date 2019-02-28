@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3220d916664674573bc42576f8a3e590
+guid: 8b3d5814fe9f9436690c8b25f77d6f5f
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -46,14 +46,14 @@ ModelImporter:
     3300014: RightArm
     3300016: RightLeg
     3300018: torso
-    4300000: LeftArm
-    4300002: RightArm
-    4300004: torso
-    4300006: ear2
-    4300008: ear
-    4300010: nose
-    4300012: hair
-    4300014: head
+    4300000: torso
+    4300002: LeftArm
+    4300004: RightArm
+    4300006: ear
+    4300008: nose
+    4300010: hair
+    4300012: head
+    4300014: ear2
     4300016: Leftleg
     4300018: RightLeg
     7400000: Take 001
@@ -78,42 +78,14 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Take 001
-      takeName: Take 001
-      firstFrame: 11
-      lastFrame: 21
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -149,7 +121,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     serializedVersion: 2
     human: []
@@ -165,7 +137,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: d0ffdcd33433042e189b19d5112c2f59,
+    type: 3}
   animationType: 2
   humanoidOversampling: 1
   additionalBone: 0

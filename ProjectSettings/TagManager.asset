@@ -9,6 +9,7 @@ TagManager:
   - Lava
   - Portal A
   - Portal B
+  - Fist
   layers:
   - Default
   - TransparentFX
@@ -18,18 +19,18 @@ TagManager:
   - UI
   - 
   - 
-  - enemy1
-  - enemy2
-  - enemy3
-  - enemy4
-  - enemy5
-  - enemy6
-  - enemy7
-  - enemy8
-  - enemy9
-  - enemy10
-  - enemy11
-  - enemy12
+  - RightWall
+  - LeftWall
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

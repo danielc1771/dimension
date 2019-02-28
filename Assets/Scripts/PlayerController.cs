@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,11 +35,13 @@ public class PlayerController : MonoBehaviour
     private bool running = false;
     private bool jumping = false;
 
-    LayerMask leftWall = LayerMask.GetMask("LeftWall");
-    LayerMask rightWall = LayerMask.GetMask("RightWall");
+    LayerMask leftWall;
+    LayerMask rightWall;
 
     void Start()
     {
+        leftWall = LayerMask.GetMask("LeftWall");
+        rightWall = LayerMask.GetMask("RightWall");
         audioGenerator = GetComponent<PlayerAudioGenerator>();
         playerRigidbody = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
@@ -101,9 +104,11 @@ public class PlayerController : MonoBehaviour
 
         if (JumpKeyPressed())
         {
-            bool touchingWallLeft = (Physics.Raycast(transform.position, Vector3.left, wallTouchRadius, leftWall));
-            bool touchingWallRight = (Physics.Raycast(transform.position, Vector3.right, wallTouchRadius, rightWall));
-
+            bool touchingWallLeft = (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), wallTouchRadius, leftWall));
+            bool touchingWallRight = (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), wallTouchRadius, rightWall));
+            // print("LEFT: " + touchingWallLeft + " RIGHT: " + touchingWallRight);
+            print("LEFT: " + Vector3.left + " RIGHT: " + Vector3.right);
+            
             if (!playerHasJumped)
             {
                 if (IsGrounded())
@@ -123,7 +128,11 @@ public class PlayerController : MonoBehaviour
                         playerHasJumped = true;
                         jumpedLeftWall = true;
                         jumpedRightWall = false;
-                        playerRigidbody.velocity = new Vector3(wallJumpHorizontalSpeed, wallJumpVerticalSpeed, 0f);
+                        //  playerRigidbody.velocity = new Vector3(-wallJumpHorizontalSpeed, wallJumpVerticalSpeed, 0f);
+                        Vector3 rbVelocity = transform.TransformDirection(Vector3.right);
+                        rbVelocity *= wallJumpHorizontalSpeed;
+                        rbVelocity += new Vector3(0f, wallJumpVerticalSpeed, 0f);
+                        playerRigidbody.velocity = rbVelocity;
                         audioGenerator.PlaySound(PlayerAudioIndex.JUMP);
                     }
                     if (touchingWallRight && !jumpedRightWall)
@@ -132,10 +141,14 @@ public class PlayerController : MonoBehaviour
                         playerHasJumped = true;
                         jumpedRightWall = true;
                         jumpedLeftWall = false;
-                        playerRigidbody.velocity = new Vector3(wallJumpHorizontalSpeed, wallJumpVerticalSpeed, 0f);
+                        //playerRigidbody.velocity = new Vector3(wallJumpHorizontalSpeed, wallJumpVerticalSpeed, 0f);
+                        Vector3 rbVelocity = transform.TransformDirection(Vector3.left);
+                        rbVelocity *= wallJumpHorizontalSpeed;
+                        rbVelocity += new Vector3(0f, wallJumpVerticalSpeed, 0f);
+                        playerRigidbody.velocity = rbVelocity;
                         audioGenerator.PlaySound(PlayerAudioIndex.JUMP);
                     }
-                    if(doubleJumpAvailable)
+                    if (doubleJumpAvailable)
                     {
                         playerHasJumped = true;
                         doubleJumpAvailable = false;
@@ -165,7 +178,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(KickKeyPressed())
+        if (KickKeyPressed())
         {
             if (punchAvailable && kickAvailable)
             {
@@ -183,6 +196,11 @@ public class PlayerController : MonoBehaviour
         punchAvailable = true;
     }
 
+    public bool IsPunching()
+    {
+        return !punchAvailable;
+    }
+
     //same as punch animation method above
     IEnumerator Kick()
     {
@@ -191,23 +209,23 @@ public class PlayerController : MonoBehaviour
         kickAvailable = true;
     }
 
-    //Detects collision with enemy
-    private void OnCollisionEnter(Collision collision)
-    {
-        //if (collision.gameObject.tag == "Enemy")
-        //{
-        //    //makes sure animation is running/punch key has been pressed. if this check it not here, the player can walk into the enemy and damage it
-        //    if (punchKeyPressed)
-        //    {
-        //        GameObject enemy = collision.gameObject;
-        //        EnemyAI temp = (EnemyAI)enemy.GetComponent(typeof(EnemyAI));
+    ////Detects collision with enemy
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "Enemy")
+    //    {
+    //        //makes sure animation is running/punch key has been pressed. if this check it not here, the player can walk into the enemy and damage it
+    //        if (!punchAvailable)
+    //        {
+    //            GameObject enemy = collision.gameObject;
+    //            EnemyAI temp = (EnemyAI)enemy.GetComponent(typeof(EnemyAI));
 
-        //        //DamageEnemy takes in a force vector. FIXME these values are just for testing. might want to lower them
-        //        temp.DamageEnemy(new Vector3(10000f, 10000f, 10000f), collision.gameObject.GetComponent<Rigidbody>());
-        //    }
-        //}
-        //else return;
-    }
+    //            //DamageEnemy takes in a force vector. FIXME these values are just for testing. might want to lower them
+    //            temp.DamageEnemy(new Vector3(10000f, 10000f, 10000f), collision.gameObject.GetComponent<Rigidbody>());
+    //        }
+    //    }
+    //    else return;
+    //}
 
     private bool JumpKeyPressed()
     {

@@ -70,15 +70,15 @@ public class EnemyAI : MonoBehaviour
         currentHealth--;
 
         //destroy the enemy game object
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject, 0);
-        }
+        //if (currentHealth <= 0)
+        //{
+          // Destroy(gameObject, 0);
+       //}
         //if the enemy is still alive, knock back
-        else
-        {
+        //else
+       //{
             enemy.AddForce(force);
-        }
+       //}
 
     }
 }
