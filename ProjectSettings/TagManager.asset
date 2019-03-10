@@ -10,6 +10,7 @@ TagManager:
   - Portal A
   - Portal B
   - Fist
+  - Death
   layers:
   - Default
   - TransparentFX

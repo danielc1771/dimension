@@ -205,6 +205,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator Kick()
     {
         kickAvailable = false;
+        audioGenerator.PlaySound(PlayerAudioIndex.KICK);
         yield return new WaitForSeconds(.3f);
         kickAvailable = true;
     }
@@ -249,5 +250,14 @@ public class PlayerController : MonoBehaviour
         //if (Physics.Raycast(transform.position, -Vector3.up, distance, leftWall) || Physics.Raycast(transform.position, -Vector3.up, distance, rightWall))
         // return false;
         return Physics.Raycast(transform.position, -Vector3.up, distance);
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if(collider.tag == "Death")
+        {
+            audioGenerator.PlaySound(PlayerAudioIndex.DEATH);
+            transform.position = new Vector3(5, 2, -5);
+        }
     }
 }

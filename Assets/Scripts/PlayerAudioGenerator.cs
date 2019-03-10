@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerAudioIndex { PUNCH = 0, JUMP, KICK };
+public enum PlayerAudioIndex { PUNCH = 0, JUMP, KICK, DEATH };
 
 public class PlayerAudioGenerator : MonoBehaviour
 {
