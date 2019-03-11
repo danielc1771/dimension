@@ -246,10 +246,23 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        float distance = playerCollider.bounds.extents.y + 0.1f;
-        //if (Physics.Raycast(transform.position, -Vector3.up, distance, leftWall) || Physics.Raycast(transform.position, -Vector3.up, distance, rightWall))
-        // return false;
-        return Physics.Raycast(transform.position, -Vector3.up, distance);
+        if(IsOnRock())
+        {
+            return true;
+        }
+        else
+        {
+            float distance = playerCollider.bounds.extents.y + 0.1f;
+            //if (Physics.Raycast(transform.position, -Vector3.up, distance, leftWall) || Physics.Raycast(transform.position, -Vector3.up, distance, rightWall))
+            // return false;
+            return Physics.Raycast(transform.position, -Vector3.up, distance);
+        }
+    }
+
+    private bool IsOnRock()
+    {
+        LayerMask rock = LayerMask.GetMask("Rock");
+        return Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), 0.2f, rock);
     }
 
     private void OnTriggerEnter(Collider collider)
