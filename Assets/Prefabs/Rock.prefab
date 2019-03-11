@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7402861363290175685}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 28333f7c860c14db8bd28efb512263dc, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 28333f7c860c14db8bd28efb512263dc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -104,14 +104,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 28333f7c860c14db8bd28efb512263dc, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 76484522c8ff44e06905ca84e4f02217, type: 2}
     - target: {fileID: 9500000, guid: 28333f7c860c14db8bd28efb512263dc, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 45ad038ab744446e88c946cb3c11a607, type: 2}
+    - target: {fileID: 2300000, guid: 28333f7c860c14db8bd28efb512263dc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 76484522c8ff44e06905ca84e4f02217, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28333f7c860c14db8bd28efb512263dc, type: 3}
 --- !u!1 &7402861363997769820 stripped
