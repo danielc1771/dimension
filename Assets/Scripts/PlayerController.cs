@@ -201,6 +201,11 @@ public class PlayerController : MonoBehaviour
         return !punchAvailable;
     }
 
+    public bool IsKicking()
+    {
+        return !kickAvailable;
+    }
+
     //same as punch animation method above
     IEnumerator Kick()
     {
@@ -270,7 +275,13 @@ public class PlayerController : MonoBehaviour
         if(collider.tag == "Death")
         {
             audioGenerator.PlaySound(PlayerAudioIndex.DEATH);
-            transform.position = new Vector3(5, 2, -5);
+
+
+            GameObject player = this.gameObject;
+            PlayerHealth temp = (PlayerHealth)player.GetComponent(typeof(PlayerHealth));
+            temp.playerDeath();
+
+            //transform.position = new Vector3(5, 2, -5);
         }
     }
 }

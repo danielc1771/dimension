@@ -9,29 +9,29 @@ public class EnemyAI : MonoBehaviour
 
     public Transform[] patrolPoints;
     float minDist = 8;
-    float distToPlayer;
+    float distToPlayer = 10;
     public int speed = 2;
-    int currentPoint = 0;
-    public bool playerSpotted = false;
-
-    int maxHealth = 2;
-    int currentHealth = 2;
+    int currentPoint;
+    bool playerSpotted = false;
 
 
     void Start()
     {
         //Find where Player is
         player = GameObject.FindWithTag("Player").transform;
- 
+
         //agent = GetComponent<NavMeshAgent>();
-       
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, patrolPoints[currentPoint].position, speed * Time.deltaTime);
-        distToPlayer = Vector3.Distance(transform.position, player.position);
+        if(!playerSpotted)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, patrolPoints[currentPoint].position, speed * Time.deltaTime);
+            distToPlayer = Vector3.Distance(transform.position, player.position);
+        }
 
         if (distToPlayer <= minDist)
         {
@@ -44,41 +44,21 @@ public class EnemyAI : MonoBehaviour
             GoToNextPoint();
         }
 
-        if(playerSpotted)
+        if (playerSpotted)
         {
-            if(player.position.y < transform.position.y)
-            {
-               playerSpotted = false;
-            }
-            transform.position = Vector3.MoveTowards(transform.position, player.position, (speed) * Time.deltaTime);
+            transform.LookAt(player);
+            //transform.position = Vector3.MoveTowards(transform.position, player.position, (speed + 2) * Time.deltaTime);
+            transform.position += transform.forward * (speed*2) * Time.deltaTime;
         }
+
     }
 
     void GoToNextPoint()
     {
         currentPoint++;
-        if (currentPoint > patrolPoints.Length-1)
+        if (currentPoint > patrolPoints.Length - 1)
         {
             currentPoint = 0;
         }
-    }
-
-    // Damages/Knocks back the enemy
-    public void DamageEnemy(Vector3 force, Rigidbody enemy)
-    {
-        //enemy has 2 hit points
-        currentHealth--;
-
-        //destroy the enemy game object
-        //if (currentHealth <= 0)
-        //{
-          // Destroy(gameObject, 0);
-       //}
-        //if the enemy is still alive, knock back
-        //else
-       //{
-            enemy.AddForce(force);
-       //}
-
     }
 }

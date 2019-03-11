@@ -19,16 +19,26 @@ public class Punch : MonoBehaviour
     //Detects collision with enemy
     private void OnTriggerEnter(Collider collider)
     {
+
+
         if (collider.gameObject.tag == "Enemy")
         {
-            //makes sure animation is running/punch key has been pressed. if this check it not here, the player can walk into the enemy and damage it
-            //if (transform.parent.parent.GetComponent<PlayerController>().IsPunching())
-            {
-                GameObject enemy = collider.gameObject;
-                EnemyAI temp = (EnemyAI)enemy.GetComponent(typeof(EnemyAI));
+            GameObject player = GameObject.FindWithTag("Player");
+            PlayerController temp1 = (PlayerController)player.GetComponent(typeof(PlayerController));
+            GameObject enemy = collider.gameObject;
+            EnemyController temp = (EnemyController)enemy.GetComponent(typeof(EnemyController));
 
-                //DamageEnemy takes in a force vector. FIXME these values are just for testing. might want to lower them
-                temp.DamageEnemy(new Vector3(10000f, 10000f, 10000f), collider.gameObject.GetComponent<Rigidbody>());
+            if (temp1.IsPunching())
+            {
+                temp.DamageEnemy(true, collider.gameObject.GetComponent<Rigidbody>());
+            }
+            if (temp1.IsKicking())
+            {
+                temp.DamageEnemy(false, collider.gameObject.GetComponent<Rigidbody>());
+
+
+                // temp.DamageEnemy(new Vector3(0f, 1000000f, 0f), collider.gameObject.GetComponent<Rigidbody>());
+                // collider.gameObject.GetComponent<Rigidbody>().AddForce(1000f, 10000f, 1000f);
             }
         }
         else return;
