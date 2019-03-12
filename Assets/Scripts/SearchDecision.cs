@@ -15,9 +15,9 @@ public class SearchDecision : Decision
     {
         RaycastHit hit;
 
-        Debug.DrawRay(controller.lineOfSight.position, controller.lineOfSight.forward.normalized * 8, Color.green);
+        Debug.DrawRay(controller.lineOfSight.position, controller.lineOfSight.forward.normalized * 12, Color.green);
 
-        if(Physics.SphereCast(controller.lineOfSight.position, 3, controller.lineOfSight.forward, out hit, 8) 
+        if(Physics.SphereCast(controller.lineOfSight.position, 12, controller.lineOfSight.forward.normalized*12, out hit, 12) 
             && hit.collider.CompareTag("Player"))
         {
             controller.chasePlayer = hit.transform;
